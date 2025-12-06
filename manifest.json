@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Microsoft Account Auto-Picker",
+  "version": "1.0",
+  "description": "Automatically selects the correct Microsoft account based on the service you are accessing.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://login.microsoftonline.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://login.microsoftonline.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}
