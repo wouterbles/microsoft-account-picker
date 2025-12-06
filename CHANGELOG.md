@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.7
+- Fix Firefox Add-on validation: add required `data_collection_permissions` field
+- Bump minimum Firefox version to 142.0 for data collection permissions support
+
 ## 0.1.6
 - Add new icon sizes (48px, 96px) for better browser compatibility
 - Refactor popup.js to use DOM methods instead of innerHTML for improved security
