@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.3
+- Fix CRX packaging to use CRX3 format for Chrome Web Store compatibility
+
 ## 0.1.2
 - Add verified CRX Chrome package to releases
 - Add privacy policy document

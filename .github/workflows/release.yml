@@ -21,6 +21,11 @@ jobs:
         id: version
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Build extension zip
         run: |
           mkdir -p dist
@@ -32,29 +37,16 @@ jobs:
             vendor/browser-polyfill.min.js \
             -x "*.DS_Store"
 
-      - name: Sign extension as CRX (for Chrome Verified Uploads)
+      - name: Build CRX3 package
         env:
           CHROME_SIGNING_KEY: ${{ secrets.CHROME_SIGNING_KEY }}
         run: |
-          # Write the private key to a file
+          npm install crx3
           echo "$CHROME_SIGNING_KEY" > key.pem
-          
-          # Extract the extension to a temp directory for signing
-          mkdir -p temp_ext
-          unzip -q "dist/microsoft-account-picker-${{ steps.version.outputs.VERSION }}.zip" -d temp_ext
-          
-          # Install Chrome for CRX packing
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
-          
-          # Pack the extension as CRX
-          google-chrome --pack-extension=temp_ext --pack-extension-key=key.pem
-          
-          # Move and rename the CRX file
-          mv temp_ext.crx "dist/microsoft-account-picker-${{ steps.version.outputs.VERSION }}.crx"
-          
-          # Clean up
-          rm -rf temp_ext key.pem
+          npx crx3 "dist/microsoft-account-picker-${{ steps.version.outputs.VERSION }}.zip" \
+            -k key.pem \
+            -o "dist/microsoft-account-picker-${{ steps.version.outputs.VERSION }}.crx"
+          rm key.pem
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
