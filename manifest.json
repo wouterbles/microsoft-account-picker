@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Microsoft Account Auto-Picker",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Automatically selects the correct Microsoft account based on the service you are accessing.",
   "browser_specific_settings": {
     "gecko": {
