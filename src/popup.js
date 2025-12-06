@@ -37,26 +37,54 @@ document.addEventListener('DOMContentLoaded', async () => {
     const card = document.createElement('div');
     card.className = `rule-card${enabled ? '' : ' disabled'}`;
 
-    card.innerHTML = `
-      <div class="rule-header">
-        <span class="rule-label">${escapeHtml(label)}</span>
-        <div class="rule-actions">
-          <label class="toggle" title="${enabled ? 'Disable' : 'Enable'} auto-login">
-            <input type="checkbox" ${enabled ? 'checked' : ''}>
-            <span class="toggle-slider"></span>
-          </label>
-          <button class="delete-btn" title="Remove rule">&times;</button>
-        </div>
-      </div>
-      <div class="rule-email">${escapeHtml(email)}</div>
-    `;
+    // Build card using DOM methods (avoids innerHTML security warning)
+    const header = document.createElement('div');
+    header.className = 'rule-header';
+
+    const labelSpan = document.createElement('span');
+    labelSpan.className = 'rule-label';
+    labelSpan.textContent = label;
+
+    const actions = document.createElement('div');
+    actions.className = 'rule-actions';
+
+    const toggleLabel = document.createElement('label');
+    toggleLabel.className = 'toggle';
+    toggleLabel.title = `${enabled ? 'Disable' : 'Enable'} auto-login`;
+
+    const toggle = document.createElement('input');
+    toggle.type = 'checkbox';
+    toggle.checked = enabled;
+
+    const toggleSlider = document.createElement('span');
+    toggleSlider.className = 'toggle-slider';
+
+    toggleLabel.appendChild(toggle);
+    toggleLabel.appendChild(toggleSlider);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'delete-btn';
+    deleteBtn.title = 'Remove rule';
+    deleteBtn.textContent = '\u00D7';
+
+    actions.appendChild(toggleLabel);
+    actions.appendChild(deleteBtn);
+
+    header.appendChild(labelSpan);
+    header.appendChild(actions);
+
+    const emailDiv = document.createElement('div');
+    emailDiv.className = 'rule-email';
+    emailDiv.textContent = email;
+
+    card.appendChild(header);
+    card.appendChild(emailDiv);
 
     // Toggle enable/disable
-    const toggle = card.querySelector('input[type="checkbox"]');
     toggle.addEventListener('change', async () => {
       const isEnabled = toggle.checked;
       card.classList.toggle('disabled', !isEnabled);
-      toggle.parentElement.title = `${isEnabled ? 'Disable' : 'Enable'} auto-login`;
+      toggleLabel.title = `${isEnabled ? 'Disable' : 'Enable'} auto-login`;
 
       // Update storage
       const current = await browser.storage.sync.get(appId);
@@ -73,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Delete rule
-    card.querySelector('.delete-btn').addEventListener('click', async () => {
+    deleteBtn.addEventListener('click', async () => {
       await browser.storage.sync.remove(appId);
       card.remove();
 
@@ -90,16 +118,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   clearAllBtn.addEventListener('click', async () => {
     if (confirm('Are you sure? This will remove all saved rules.')) {
       await browser.storage.sync.clear();
-      listElement.innerHTML = '';
+      while (listElement.firstChild) {
+        listElement.removeChild(listElement.firstChild);
+      }
       clearAllBtn.style.display = 'none';
       emptyState.style.display = 'block';
     }
   });
 });
-
-// Escape HTML to prevent XSS
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}

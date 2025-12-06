@@ -6,8 +6,8 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "{20F6B78A-781B-4611-89BB-1556CF94C391}",
-      "strict_min_version": "109.0",
-      "data_collection_permissions": []
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {}
     }
   },
   "permissions": [
@@ -31,8 +31,7 @@
     }
   ],
   "icons": {
-    "16": "icons/icon.png",
-    "48": "icons/icon.png",
-    "128": "icons/icon.png"
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png"
   }
 }

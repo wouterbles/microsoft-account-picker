@@ -23,7 +23,7 @@ const fs = require('fs');
 
 const OUTPUT_DIR = path.join(__dirname, 'screenshots');
 const HTML_FILE = path.join(__dirname, 'screenshots.html');
-const SCALE = 2;
+const SCALE = 1; // Must be 1x for exact store dimensions (1280x800, 440x280, 1400x560)
 
 const SCREENSHOTS = [
   { id: 'screenshot-browser', file: 'screenshot-1.png' },
