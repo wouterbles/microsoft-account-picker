@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Microsoft Account Auto-Picker - Screenshots</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, sans-serif;
+      background: #2d2d2d;
+      min-height: 100vh;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      align-items: center;
+    }
+
+    h1, h2.section-title {
+      color: white;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.7;
+      margin-bottom: -40px;
+    }
+
+    /* ==========================================
+       Shared: Popup Mockup Component
+       ========================================== */
+    .popup-mockup {
+      width: 280px;
+      font-family: 'Segoe UI', -apple-system, sans-serif;
+      background: #fafafa;
+      color: #333;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      border: 1px solid #e0e0e0;
+    }
+
+    .popup-mockup .header {
+      background: #0078d4;
+      color: white;
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .popup-mockup .content {
+      padding: 10px;
+    }
+
+    .popup-mockup .rule-card {
+      background: white;
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-bottom: 6px;
+    }
+
+    .popup-mockup .rule-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .popup-mockup .rule-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+
+    .popup-mockup .rule-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .popup-mockup .rule-email {
+      font-size: 12px;
+      color: #0078d4;
+    }
+
+    .popup-mockup .toggle-pill {
+      width: 32px;
+      height: 18px;
+      background: #0078d4;
+      border-radius: 9px;
+      position: relative;
+    }
+
+    .popup-mockup .toggle-pill::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: white;
+      border-radius: 50%;
+      top: 3px;
+      right: 3px;
+    }
+
+    .popup-mockup .rule-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .popup-mockup .delete-btn {
+      background: none;
+      border: none;
+      color: #999;
+      font-size: 16px;
+      line-height: 1;
+      padding: 0 4px;
+    }
+
+    .popup-mockup .clear-all-btn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 8px;
+      background: white;
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      color: #666;
+      font-size: 12px;
+    }
+
+    .popup-mockup .empty-state {
+      text-align: center;
+      padding: 20px 16px;
+      color: #888;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .popup-mockup .footer {
+      text-align: center;
+      padding: 6px;
+      font-size: 10px;
+      color: #aaa;
+      border-top: 1px solid #eee;
+    }
+
+    /* ==========================================
+       Shared: Browser Frame Component
+       ========================================== */
+    .browser-frame {
+      background: #dee1e6;
+      border-radius: 8px;
+      padding: 8px 8px 0 8px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    }
+
+    .browser-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 8px;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .browser-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .browser-dot.red { background: #ff5f57; }
+    .browser-dot.yellow { background: #ffbd2e; }
+    .browser-dot.green { background: #28ca42; }
+
+    .browser-url {
+      flex: 1;
+      background: white;
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .extension-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .extension-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .browser-frame .popup-mockup {
+      border-radius: 0 0 8px 8px;
+      box-shadow: none;
+      border: none;
+      width: 300px;
+    }
+
+    /* ==========================================
+       Screenshot 1: Popup in Browser (1280x800)
+       ========================================== */
+    #screenshot-browser {
+      width: 1280px;
+      height: 800px;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+    }
+
+    #screenshot-browser .mockup-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #screenshot-browser .mockup-label {
+      font-size: 14px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* ==========================================
+       Screenshot 2: Feature List (1280x800)
+       ========================================== */
+    #screenshot-features {
+      width: 1280px;
+      height: 800px;
+      background: #fafafa;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      padding: 80px;
+      align-items: center;
+    }
+
+    #screenshot-features .left {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    #screenshot-features h2 {
+      font-size: 36px;
+      color: #333;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    #screenshot-features .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    #screenshot-features .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: white;
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid #e5e5e5;
+    }
+
+    #screenshot-features .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: #0078d4;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    #screenshot-features .feature-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    #screenshot-features .feature-text h4 {
+      font-size: 16px;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    #screenshot-features .feature-text p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    #screenshot-features .right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #screenshot-features .right .popup-mockup {
+      transform: scale(1.15);
+    }
+
+    /* ==========================================
+       Screenshot 3: How It Works (1280x800)
+       ========================================== */
+    #screenshot-how {
+      width: 1280px;
+      height: 800px;
+      background: #f5f5f5;
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #screenshot-how h2 {
+      font-size: 36px;
+      color: #333;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    #screenshot-how .steps {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex: 1;
+      align-items: center;
+    }
+
+    #screenshot-how .step {
+      flex: 0 0 280px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    #screenshot-how .step-number {
+      width: 48px;
+      height: 48px;
+      background: #0078d4;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 600;
+      color: white;
+    }
+
+    #screenshot-how .step-icon {
+      width: 100px;
+      height: 100px;
+      background: white;
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #screenshot-how .step-icon svg {
+      width: 48px;
+      height: 48px;
+      fill: #0078d4;
+    }
+
+    #screenshot-how .step h4 {
+      font-size: 18px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    #screenshot-how .step p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    #screenshot-how .arrow {
+      font-size: 32px;
+      color: #ccc;
+    }
+
+    /* ==========================================
+       Promo: Marquee Tile (1400x560)
+       ========================================== */
+    #promo-marquee {
+      width: 1400px;
+      height: 560px;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+      padding: 60px;
+    }
+
+    #promo-marquee .text-content {
+      max-width: 550px;
+    }
+
+    #promo-marquee h2 {
+      font-size: 42px;
+      color: #333;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+
+    #promo-marquee p {
+      font-size: 18px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    #promo-marquee .features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #promo-marquee .feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #555;
+      font-size: 15px;
+    }
+
+    #promo-marquee .feature svg {
+      width: 20px;
+      height: 20px;
+      fill: #0078d4;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================
+       Promo: Small Tile (440x280)
+       ========================================== */
+    #promo-small {
+      width: 440px;
+      height: 280px;
+      background: #0078d4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+    }
+
+    #promo-small .icon {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 16px;
+    }
+
+    #promo-small .icon svg {
+      width: 56px;
+      height: 56px;
+    }
+
+    #promo-small h3 {
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    #promo-small p {
+      color: rgba(255,255,255,0.9);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Extension Screenshots</h1>
+
+  <!-- ==========================================
+       Screenshot 1: Popup in Browser Context
+       ========================================== -->
+  <h2 class="section-title">screenshot-1.png (1280x800)</h2>
+  <div id="screenshot-browser">
+    <div class="mockup-container">
+      <div class="mockup-label">Popup with Saved Rules</div>
+      <div class="browser-frame">
+        <div class="browser-toolbar">
+          <div class="browser-dots">
+            <div class="browser-dot red"></div>
+            <div class="browser-dot yellow"></div>
+            <div class="browser-dot green"></div>
+          </div>
+          <div class="browser-url">login.microsoftonline.com</div>
+          <div class="extension-icon">
+            <svg viewBox="0 0 128 128"><circle cx="64" cy="64" r="64" fill="#0078d4"/><path d="M56.5 82.5L39 65l-4.5 4.5L56.5 91.5 94 54l-4.5-4.5L56.5 82.5z" fill="white"/></svg>
+          </div>
+        </div>
+        <div class="popup-mockup" id="popup-rules">
+          <div class="header">Microsoft Account Auto-Picker</div>
+          <div class="content">
+            <div class="rule-list" id="rule-list"></div>
+            <button class="clear-all-btn">Clear All Rules</button>
+          </div>
+          <div class="footer">v0.1.1</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-container">
+      <div class="mockup-label">Empty State</div>
+      <div class="browser-frame">
+        <div class="browser-toolbar">
+          <div class="browser-dots">
+            <div class="browser-dot red"></div>
+            <div class="browser-dot yellow"></div>
+            <div class="browser-dot green"></div>
+          </div>
+          <div class="browser-url">portal.azure.com</div>
+          <div class="extension-icon">
+            <svg viewBox="0 0 128 128"><circle cx="64" cy="64" r="64" fill="#0078d4"/><path d="M56.5 82.5L39 65l-4.5 4.5L56.5 91.5 94 54l-4.5-4.5L56.5 82.5z" fill="white"/></svg>
+          </div>
+        </div>
+        <div class="popup-mockup">
+          <div class="header">Microsoft Account Auto-Picker</div>
+          <div class="content">
+            <div class="empty-state">No rules saved yet.<br>Log in to Microsoft services to teach me!</div>
+          </div>
+          <div class="footer">v0.1.1</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       Screenshot 2: What Does It Do
+       ========================================== -->
+  <h2 class="section-title">screenshot-2.png (1280x800)</h2>
+  <div id="screenshot-features">
+    <div class="left">
+      <h2>What does it do?</h2>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <div class="feature-text">
+            <h4>Remembers your choices</h4>
+            <p>Learns which account you use for Azure, M365, Teams, and other Microsoft services.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg>
+          </div>
+          <div class="feature-text">
+            <h4>Auto-selects next time</h4>
+            <p>When you return to that service, the extension clicks the right account for you.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </div>
+          <div class="feature-text">
+            <h4>Privacy focused</h4>
+            <p>No servers, no tracking. Everything stays in your browser's local storage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="popup-mockup" id="popup-features">
+        <div class="header">Microsoft Account Auto-Picker</div>
+        <div class="content" id="features-rules"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       Screenshot 3: How It Works
+       ========================================== -->
+  <h2 class="section-title">screenshot-3.png (1280x800)</h2>
+  <div id="screenshot-how">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+        </div>
+        <h4>Log in normally</h4>
+        <p>Pick your account when logging into any Microsoft service</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+        </div>
+        <h4>Extension remembers</h4>
+        <p>Your choice is saved for that specific service</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+        </div>
+        <h4>Auto-selected</h4>
+        <p>Next time, it clicks the right account automatically</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       Promo: Large Marquee Tile (1400x560)
+       ========================================== -->
+  <h2 class="section-title">promo-marquee.png (1400x560)</h2>
+  <div id="promo-marquee">
+    <div class="text-content">
+      <h2>Tired of picking the wrong Microsoft account?</h2>
+      <p>This extension remembers which account you use for each Microsoft service and automatically selects it for you.</p>
+      <div class="features">
+        <div class="feature">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          Set it once, works automatically
+        </div>
+        <div class="feature">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          All data stays in your browser
+        </div>
+        <div class="feature">
+          <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+          Syncs via browser sync
+        </div>
+      </div>
+    </div>
+    <div class="popup-mockup" id="popup-marquee">
+      <div class="header">Microsoft Account Auto-Picker</div>
+      <div class="content" id="marquee-rules"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       Promo: Small Tile (440x280)
+       ========================================== -->
+  <h2 class="section-title">promo-small.png (440x280)</h2>
+  <div id="promo-small">
+    <div class="icon">
+      <svg viewBox="0 0 128 128"><circle cx="64" cy="64" r="64" fill="white" fill-opacity="0.2"/><path d="M56.5 82.5L39 65l-4.5 4.5L56.5 91.5 94 54l-4.5-4.5L56.5 82.5z" fill="white"/></svg>
+    </div>
+    <h3>Microsoft Account Auto-Picker</h3>
+    <p>Automatically selects the right account<br>for each Microsoft service you use.</p>
+  </div>
+
+  <script>
+    // Demo data - single source of truth
+    const DEMO_RULES = [
+      { label: "Azure Portal", email: "work@company.com" },
+      { label: "Microsoft 365", email: "work@company.com" },
+      { label: "Personal OneDrive", email: "john@outlook.com" },
+      { label: "GitHub (SSO)", email: "work@company.com" },
+    ];
+
+    // Render rule cards
+    function renderRules(containerId, rules) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      
+      rules.forEach(rule => {
+        const card = document.createElement('div');
+        card.className = 'rule-card';
+        card.innerHTML = `
+          <div class="rule-header">
+            <span class="rule-label">${rule.label}</span>
+            <div class="rule-actions">
+              <div class="toggle-pill"></div>
+              <span class="delete-btn">×</span>
+            </div>
+          </div>
+          <div class="rule-email">${rule.email}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Populate all rule lists
+    renderRules('rule-list', DEMO_RULES);
+    renderRules('features-rules', DEMO_RULES.slice(0, 3));
+    renderRules('marquee-rules', DEMO_RULES.slice(0, 3));
+  </script>
+</body>
+</html>

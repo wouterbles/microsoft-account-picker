@@ -1,0 +1,11 @@
+{
+  "name": "microsoft-account-picker-promo",
+  "version": "1.0.0",
+  "description": "Screenshot generation for Microsoft Account Auto-Picker",
+  "scripts": {
+    "screenshots": "node screenshot.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.15.0"
+  }
+}
