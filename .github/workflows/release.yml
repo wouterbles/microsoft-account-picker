@@ -53,7 +53,7 @@ jobs:
           
           # Build CRX3 from directory
           npx crx3 temp_ext \
-            -k key.pem \
+            -p key.pem \
             -o "dist/microsoft-account-picker-${VERSION}.crx"
           
           rm -rf temp_ext key.pem
