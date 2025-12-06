@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - '*.*'
 
 jobs:
   build:
@@ -15,12 +15,12 @@ jobs:
 
       - name: Extract version from tag
         id: version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       - name: Build extension zip
         run: |
           mkdir -p dist
-          zip -r "dist/microsoft-account-picker-v${{ steps.version.outputs.VERSION }}.zip" \
+          zip -r "dist/microsoft-account-picker-${{ steps.version.outputs.VERSION }}.zip" \
             manifest.json \
             icons/ \
             src/ \
@@ -30,7 +30,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/microsoft-account-picker-v${{ steps.version.outputs.VERSION }}.zip
+          files: dist/microsoft-account-picker-${{ steps.version.outputs.VERSION }}.zip
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
