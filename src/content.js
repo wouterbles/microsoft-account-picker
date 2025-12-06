@@ -104,7 +104,7 @@ function attachListeners(appId) {
         const label = getReadableLabel();
         log(`Learning: ${label} (${appId}) -> ${selectedEmail}`);
 
-        chrome.storage.sync.set({
+        browser.storage.sync.set({
           [appId]: {
             email: selectedEmail,
             label: label,
@@ -119,7 +119,7 @@ function attachListeners(appId) {
 
 // Main initialization
 async function init(appId) {
-  const storage = await chrome.storage.sync.get(appId);
+  const storage = await browser.storage.sync.get(appId);
   const savedData = storage[appId];
 
   // Handle backwards compatibility (old format was just a string)

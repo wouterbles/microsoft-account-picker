@@ -3,6 +3,12 @@
   "name": "Microsoft Account Auto-Picker",
   "version": "1.0",
   "description": "Automatically selects the correct Microsoft account based on the service you are accessing.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{20F6B78A-781B-4611-89BB-1556CF94C391}",
+      "strict_min_version": "109.0"
+    }
+  },
   "permissions": ["storage"],
   "host_permissions": [
     "https://login.microsoftonline.com/*"
@@ -13,7 +19,7 @@
   "content_scripts": [
     {
       "matches": ["https://login.microsoftonline.com/*"],
-      "js": ["src/content.js"]
+      "js": ["vendor/browser-polyfill.min.js", "src/content.js"]
     }
   ],
   "icons": {

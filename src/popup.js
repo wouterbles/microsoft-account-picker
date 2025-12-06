@@ -5,10 +5,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   const versionEl = document.getElementById('version');
 
   // Display version from manifest
-  const manifest = chrome.runtime.getManifest();
+  const manifest = browser.runtime.getManifest();
   versionEl.textContent = manifest.version;
 
-  const data = await chrome.storage.sync.get(null);
+  const data = await browser.storage.sync.get(null);
   const keys = Object.keys(data);
 
   if (keys.length === 0) {
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       toggle.parentElement.title = `${isEnabled ? 'Disable' : 'Enable'} auto-login`;
 
       // Update storage
-      const current = await chrome.storage.sync.get(appId);
+      const current = await browser.storage.sync.get(appId);
       let updated = current[appId];
 
       if (typeof updated === 'string') {
@@ -69,12 +69,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         updated = { ...updated, enabled: isEnabled, updatedAt: Date.now() };
       }
 
-      await chrome.storage.sync.set({ [appId]: updated });
+      await browser.storage.sync.set({ [appId]: updated });
     });
 
     // Delete rule
     card.querySelector('.delete-btn').addEventListener('click', async () => {
-      await chrome.storage.sync.remove(appId);
+      await browser.storage.sync.remove(appId);
       card.remove();
 
       if (listElement.children.length === 0) {
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Clear All button
   clearAllBtn.addEventListener('click', async () => {
     if (confirm('Are you sure? This will remove all saved rules.')) {
-      await chrome.storage.sync.clear();
+      await browser.storage.sync.clear();
       listElement.innerHTML = '';
       clearAllBtn.style.display = 'none';
       emptyState.style.display = 'block';
