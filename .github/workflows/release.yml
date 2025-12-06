@@ -27,9 +27,11 @@ jobs:
           node-version: '20'
 
       - name: Build extension zip
+        env:
+          VERSION: ${{ steps.version.outputs.VERSION }}
         run: |
           mkdir -p dist
-          zip -r "dist/microsoft-account-picker-${{ steps.version.outputs.VERSION }}.zip" \
+          zip -r "dist/microsoft-account-picker-${VERSION}.zip" \
             manifest.json \
             LICENSE \
             icons/ \
@@ -40,13 +42,21 @@ jobs:
       - name: Build CRX3 package
         env:
           CHROME_SIGNING_KEY: ${{ secrets.CHROME_SIGNING_KEY }}
+          VERSION: ${{ steps.version.outputs.VERSION }}
         run: |
-          npm install crx3
+          npm install crx3@1.1.3
           echo "$CHROME_SIGNING_KEY" > key.pem
-          npx crx3 "dist/microsoft-account-picker-${{ steps.version.outputs.VERSION }}.zip" \
+          
+          # Extract zip to temp directory for crx3
+          mkdir -p temp_ext
+          unzip -q "dist/microsoft-account-picker-${VERSION}.zip" -d temp_ext
+          
+          # Build CRX3 from directory
+          npx crx3 temp_ext \
             -k key.pem \
-            -o "dist/microsoft-account-picker-${{ steps.version.outputs.VERSION }}.crx"
-          rm key.pem
+            -o "dist/microsoft-account-picker-${VERSION}.crx"
+          
+          rm -rf temp_ext key.pem
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
