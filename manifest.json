@@ -2,11 +2,13 @@
   "manifest_version": 3,
   "name": "Microsoft Account Auto-Picker",
   "version": "0.1.1",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlu0k8wmmN+ZDDmNfomj3njvgrz0yoTPgcCtxS2do2VbSE//AXMxuCIhBmxXqa03xjIQOBdjkJ0WrW6QY1JolcvSWDxsdlHu32Gvkaeo+aUd1og7XuYgCQfIIq3T8O4wY27NMh8Enata3wtXhyIhVMPIqfm+qNkpJiUzUzL0JQHbssfmwmZADHu09EZe92CY6htddJip/c4mPNuhFWj20rb+9ks9N4ZfCrcfg9HcCzXSmsYIlYoQHk2cRzsSkwhvPAmIplGONVj36+oKnYR5XwjmQqa9cHac/EHCD1jHqeHnVbxTnqASCD61On2UbX5OVcxfcjaJeyrivWBkzjg8sywIDAQAB",
   "description": "Automatically selects the correct Microsoft account based on the service you are accessing.",
   "browser_specific_settings": {
     "gecko": {
       "id": "{20F6B78A-781B-4611-89BB-1556CF94C391}",
-      "strict_min_version": "109.0"
+      "strict_min_version": "109.0",
+      "data_collection_permissions": []
     }
   },
   "permissions": [
