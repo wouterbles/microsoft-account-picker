@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.6
+- Add new icon sizes (48px, 96px) for better browser compatibility
+- Refactor popup.js to use DOM methods instead of innerHTML for improved security
+- Update manifest with new icon configurations
+
+## 0.1.5
+- Clean up manifest.json and remove unnecessary key tag
+
+## 0.1.4
+- Fix CRX3 build command parameter flag in release workflow
+
 ## 0.1.3
 - Fix CRX packaging to use CRX3 format for Chrome Web Store compatibility
 
