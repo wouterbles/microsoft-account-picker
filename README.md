@@ -40,29 +40,24 @@ MIT
 
 ---
 
-## Manual Installation
+## Manual Installation / Development
 
-### From Releases
+If you cannot use the stores or want to modify the code:
 
-If you prefer to install manually or don't have access to the stores:
+### 1. Get the code
 
-1.  Download the latest release zip from the [Releases page](../../releases).
-2.  Unzip the file.
-3.  Load it into your browser (see "Load from Source" below).
+*   **Option A (Stable):** Download and unzip the latest file from [Releases](../../releases).
+*   **Option B (Dev):** Clone this repository.
 
-### Load from Source (Development)
+### 2. Load into browser
 
-To build and run from the source code:
-
-**Chrome**
-1.  Clone this repo.
-2.  Go to `chrome://extensions`.
-3.  Enable "Developer mode".
-4.  Click "Load unpacked" and select this folder.
+**Chrome / Edge**
+1.  Go to `chrome://extensions`.
+2.  Enable "Developer mode" (top right).
+3.  Click "Load unpacked" and select the extension folder.
 
 **Firefox**
-1.  Clone this repo.
-2.  Go to `about:debugging#/runtime/this-firefox`.
-3.  Click "Load Temporary Add-on".
-4.  Select the `manifest.json` file in this folder.
+1.  Go to `about:debugging#/runtime/this-firefox`.
+2.  Click "Load Temporary Add-on".
+3.  Select the `manifest.json` file in the extension folder.
     > Note: Temporary add-ons are removed when Firefox closes.
