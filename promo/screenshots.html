@@ -142,11 +142,32 @@
     }
 
     .popup-mockup .footer {
-      text-align: center;
-      padding: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
       font-size: 10px;
       color: #aaa;
       border-top: 1px solid #eee;
+    }
+
+    .popup-mockup .footer-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .popup-mockup .footer-action {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      color: #999;
+      text-decoration: none;
+      font-size: 10px;
+    }
+
+    .popup-mockup .footer-action svg {
+      width: 12px;
+      height: 12px;
     }
 
     /* ==========================================
@@ -523,7 +544,19 @@
             <div class="rule-list" id="rule-list"></div>
             <button class="clear-all-btn">Clear All Rules</button>
           </div>
-          <div class="footer">v0.1.1</div>
+          <div class="footer">
+            <div class="footer-actions">
+              <div class="footer-action">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export
+              </div>
+              <div class="footer-action">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Import
+              </div>
+            </div>
+            <span>v0.2.0</span>
+          </div>
         </div>
       </div>
     </div>
@@ -547,7 +580,19 @@
           <div class="content">
             <div class="empty-state">No rules saved yet.<br>Log in to Microsoft services to teach me!</div>
           </div>
-          <div class="footer">v0.1.1</div>
+          <div class="footer">
+            <div class="footer-actions">
+              <div class="footer-action">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export
+              </div>
+              <div class="footer-action">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Import
+              </div>
+            </div>
+            <span>v0.2.0</span>
+          </div>
         </div>
       </div>
     </div>
@@ -594,6 +639,19 @@
       <div class="popup-mockup" id="popup-features">
         <div class="header">Microsoft Account Auto-Picker</div>
         <div class="content" id="features-rules"></div>
+        <div class="footer">
+          <div class="footer-actions">
+            <div class="footer-action">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export
+            </div>
+            <div class="footer-action">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Import
+            </div>
+          </div>
+          <span>v0.2.0</span>
+        </div>
       </div>
     </div>
   </div>
@@ -660,6 +718,19 @@
     <div class="popup-mockup" id="popup-marquee">
       <div class="header">Microsoft Account Auto-Picker</div>
       <div class="content" id="marquee-rules"></div>
+      <div class="footer">
+        <div class="footer-actions">
+          <div class="footer-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export
+          </div>
+          <div class="footer-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Import
+          </div>
+        </div>
+        <span>v0.2.0</span>
+      </div>
     </div>
   </div>
 
