@@ -170,11 +170,45 @@
 
     /* Footer */
     .footer {
-      text-align: center;
-      padding: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
       font-size: 10px;
       color: #aaa;
       border-top: 1px solid #eee;
+    }
+
+    .footer-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-action {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      color: #999;
+      text-decoration: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 10px;
+      padding: 0;
+      transition: color 0.2s;
+    }
+
+    .footer-action:hover {
+      color: #0078d4;
+    }
+
+    .footer-action svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .import-input {
+      display: none;
     }
   </style>
 </head>
@@ -188,7 +222,28 @@
       Log in to Microsoft services to teach me!
     </div>
   </div>
-  <div class="footer">v<span id="version"></span></div>
+  <div class="footer">
+    <div class="footer-actions">
+      <button id="export-btn" class="footer-action" title="Export rules">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Export
+      </button>
+      <label class="footer-action" title="Import rules">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        Import
+        <input type="file" id="import-input" class="import-input" accept=".json">
+      </label>
+    </div>
+    <span>v<span id="version"></span></span>
+  </div>
   <script src="../vendor/browser-polyfill.min.js"></script>
   <script src="popup.js"></script>
 </body>

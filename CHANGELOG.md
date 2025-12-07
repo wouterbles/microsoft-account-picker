@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0
+- Add import/export functionality for rules backup and transfer between browsers
+- Export saves rules as JSON with version metadata
+- Import merges with existing rules, with validation and confirmation
+
 ## 0.1.8
 - Fix Firefox Add-on validation: `data_collection_permissions.required` must be an array
 - Bump minimum Firefox version to 142.0 for data collection permissions support

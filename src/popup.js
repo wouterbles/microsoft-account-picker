@@ -3,10 +3,80 @@ document.addEventListener('DOMContentLoaded', async () => {
   const emptyState = document.getElementById('empty');
   const clearAllBtn = document.getElementById('clear-all');
   const versionEl = document.getElementById('version');
+  const exportBtn = document.getElementById('export-btn');
+  const importInput = document.getElementById('import-input');
 
   // Display version from manifest
   const manifest = browser.runtime.getManifest();
   versionEl.textContent = manifest.version;
+
+  // Export functionality
+  exportBtn.addEventListener('click', async () => {
+    const data = await browser.storage.sync.get(null);
+    const exportData = {
+      version: manifest.version,
+      exportedAt: new Date().toISOString(),
+      rules: data
+    };
+
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const date = new Date().toISOString().split('T')[0];
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ms-account-picker-rules-${date}.json`;
+    a.click();
+
+    URL.revokeObjectURL(url);
+  });
+
+  // Import functionality
+  importInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const importData = JSON.parse(text);
+
+      // Validate structure
+      let rules = {};
+      if (importData.rules && typeof importData.rules === 'object') {
+        rules = importData.rules;
+      } else if (typeof importData === 'object' && !importData.version) {
+        // Support raw rules object (backwards compatibility)
+        rules = importData;
+      } else {
+        throw new Error('Invalid file format');
+      }
+
+      // Filter valid rules
+      const validRules = {};
+      for (const [key, value] of Object.entries(rules)) {
+        if (typeof value === 'string' || (value && typeof value === 'object' && value.email)) {
+          validRules[key] = value;
+        }
+      }
+
+      const count = Object.keys(validRules).length;
+      if (count === 0) {
+        alert('No valid rules found in the file.');
+        return;
+      }
+
+      if (confirm(`Import ${count} rule${count > 1 ? 's' : ''}? This will merge with your existing rules.`)) {
+        await browser.storage.sync.set(validRules);
+        // Reload popup to show updated rules
+        window.location.reload();
+      }
+    } catch (err) {
+      alert('Failed to import: Invalid JSON file.');
+    }
+
+    // Reset input so same file can be selected again
+    importInput.value = '';
+  });
 
   const data = await browser.storage.sync.get(null);
   const keys = Object.keys(data);
